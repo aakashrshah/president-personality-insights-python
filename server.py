@@ -78,7 +78,7 @@ class DemoService(object):
         self.service = service
         self.defaultContent = None
         try:
-            filename = "public/data/Barack_Obama_Inaugral.txt"
+            filename = "public/text/en.txt"
             contentFile = open(filename, "r")
             self.defaultContent = contentFile.read()
         except Exception as e:
@@ -98,10 +98,13 @@ class DemoService(object):
         and return the response.
         """
         try:
-            print(name)
-            contentFile = open(name, "r")
-            self.defaultContent = contentFile.read()
-            text = self.defaultContent
+            if(name):
+                contentFile = open(name, "r")
+                text = contentFile.read()
+                print(name)
+            
+            self.defaultContent = text
+            print(text)
             profileJson = self.service.getProfile(text)
             return json.dumps(profileJson)
         except Exception as e:

@@ -53,16 +53,23 @@ $(document).ready(function() {
   });
 
   $dropdown.change(function(){
-    var speech = "../" + $dropdown.val();
-    $content.load(speech);
-    updateWordsCount();
-  });
+      var speech = "../" + $dropdown.val();
+      $content.load(speech);
+      updateWordsCount();
 
+      if($dropdown.val() == "None"){
+        $content.val('');
+        updateWordsCount();
+      }
+  });
+  
   /**
    * 1. Create the request
    * 2. Call the API
    * 3. Call the methods to display the results
    */
+
+
   $('.analysis-btn').click(function(){
     $('.analysis-btn').blur();
     $loading.show();
@@ -74,7 +81,7 @@ $(document).ready(function() {
       type: 'POST',
       data: {
         text: $content.val(),
-        name: $dropdown.val()
+        name: $dropdown.val()=="None" ? "" : $dropdown.val()
       },
       url: '/',
       dataType: 'json',
